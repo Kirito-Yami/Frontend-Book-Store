@@ -1,12 +1,12 @@
 const TodoData = (props) => {
-    const {name, age, data} = props;
+    const {todoList} = props;
 
     return (
         <div className='todo-data'>
-            <div>My name is: {name}</div>
-            <div>I'm: {age}</div>
-            <div>I live at: {data.address}</div>
-            <div>I come from: {data.country}</div>
+            <div>My name is {todoList.name}</div>
+            <div>I'm {todoList.age}</div>
+            <div>I live at {todoList.data.address}</div>
+            <div>I come from {todoList.data.country}</div>
         </div>
     )
 }
