@@ -1,5 +1,5 @@
 const TodoData = (props) => {
-    const {todoList} = props;
+    const {todoList, list} = props;
 
     return (
         <div className='todo-data'>
@@ -7,6 +7,7 @@ const TodoData = (props) => {
             <div>I'm {todoList.age}</div>
             <div>I live at {todoList.data.address}</div>
             <div>I come from {todoList.data.country}</div>
+            <div>{JSON.stringify(list)}</div>
         </div>
     )
 }
