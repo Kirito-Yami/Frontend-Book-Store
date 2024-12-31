@@ -1,5 +1,9 @@
 const TodoData = (props) => {
-    const {list} = props;
+    const {list, deleteList} = props;
+
+    const handleDelete = (id) => {
+        deleteList(id);
+    }
 
     return (
         <div className='todo-data'>
@@ -25,7 +29,7 @@ const TodoData = (props) => {
 
                             <p>⚡ Sở thích của tôi là viết mã ngắn gọn, dễ hiểu và hiệu quả – tối giản nhưng mạnh mẽ.</p>
                         </div>
-                        <button className={"btn"}>Delete</button>
+                        <button className={"btn"} onClick={()=>handleDelete(item.id)}>Delete</button>
                     </div>
                 )
             })}
