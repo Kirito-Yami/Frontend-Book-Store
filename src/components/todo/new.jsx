@@ -6,8 +6,12 @@ const TodoNew = (props) => {
     const {addNewTodo} = props;
 
     const handleOnClick = () => {
-        addNewTodo(valueInput);
-        setValueInput('');
+        if (valueInput ===''){
+            alert("Add...add...cái nịt! Thích spam không???")
+        }else{
+            addNewTodo(valueInput);
+            setValueInput('');
+        }
     }
 
     const handleOnChange = (event) => {
@@ -15,23 +19,20 @@ const TodoNew = (props) => {
     }
 
     return (
-        <>
             <div className='todo-new'>
                 <input
+                    className="input-new"
                     type="text"
                     value={valueInput}
                     onChange={(event) => handleOnChange(event.target.value)}
                 />
                 <button
                     onClick={() => handleOnClick()}
+                    style={{cursor: 'pointer', padding: '5px', width: "50px"}}
                 >
                     Add
                 </button>
             </div>
-            <div style={{paddingTop: '20px'}}>
-                My name is: {valueInput}
-            </div>
-        </>
     )
 }
 export default TodoNew;
