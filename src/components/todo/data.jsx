@@ -5,7 +5,7 @@ const TodoData = (props) => {
         <div className='todo-data'>
             {list.map((item, index) => {
                 return (
-                    <div className="todo-item">
+                    <div className="todo-item" key={item.id}>
                         <div>
                             <p>👋👋 Chào bạn, tôi là <strong>{item.name}</strong>!</p>
 
