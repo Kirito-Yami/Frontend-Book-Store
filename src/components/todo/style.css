@@ -1,6 +1,6 @@
 .todo-container {
     margin: 50px auto;
-    width: 600px;
+    width: 1000px;
 }
 .todo-title {
     font-size: 35px;
@@ -53,3 +53,14 @@
         transform: rotate(360deg);
     }
 }
+
+.todo-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn{
+        height: 50px;
+    }
+}
+
