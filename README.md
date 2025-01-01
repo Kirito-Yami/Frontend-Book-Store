@@ -9,7 +9,7 @@
    - Môi trường chạy dự án là NodeJS version 20.14.0
 
 3. Tài nguyên:
-   - Để test dự án, vui lòng download source backend tại đây: https://github.com/Kirito-Seika/Backend-Book-Store
+   - Vì đây là dự án tập trung về Frontend, vì vậy bạn vui lòng liên hệ tác giả nếu cần Backend của dự án này.
 
 4. Cách chạy dự án:
    - Các bước cài đặt:
