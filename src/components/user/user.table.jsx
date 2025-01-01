@@ -1,8 +1,9 @@
-import {Table} from 'antd';
+import {Popconfirm, Table, notification} from 'antd';
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import UserUpdate from "./user.update.jsx";
 import {useState} from 'react';
 import UserDetail from "./user.detail.jsx";
+import {deleteUserAPI} from "../../services/api.service.js";
 
 const UserTable = (props) => {
     const { dataUsers, loadUser } = props;
@@ -51,11 +52,36 @@ const UserTable = (props) => {
                         }}
                         style={{cursor: "pointer", color: "orange"}}
                     />
-                    <DeleteOutlined style={{cursor: "pointer", color: "red"}}/>
+                    <Popconfirm
+                        title="Xóa người dùng"
+                        description="Bạn chắc chắn xóa user này ?"
+                        onConfirm={() => handleDeleteUser(record._id)}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="left"
+                    >
+                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    </Popconfirm>
                 </div>
             ),
         },
     ];
+
+    const handleDeleteUser = async (id) => {
+        const res = await deleteUserAPI(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete user",
+                description: "Xóa user thành công"
+            })
+            await loadUser();
+        } else {
+            notification.error({
+                message: "Error delete user",
+                description: JSON.stringify(res.message)
+            })
+        }
+    }
 
     return (
         <>
