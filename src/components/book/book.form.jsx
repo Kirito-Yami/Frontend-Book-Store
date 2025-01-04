@@ -7,6 +7,7 @@ const BookForm = (props) => {
     const [form] = Form.useForm();
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmitBtn = async (values) => {
         if (!selectedFile) {
@@ -23,6 +24,7 @@ const BookForm = (props) => {
             const newThumbnail = resUpload.data.fileUploaded;
             //step 2: create book
             const {mainText, author, price, quantity, category} = values;
+            setIsLoading(true);
             const resBook = await createBookAPI(
                 newThumbnail, mainText, author, price, quantity, category
             );
@@ -39,6 +41,7 @@ const BookForm = (props) => {
                     description: JSON.stringify(resBook.message)
                 })
             }
+            setIsLoading(false);
         } else {
             //failed
             notification.error({
@@ -71,12 +74,15 @@ const BookForm = (props) => {
 
     return (
         <Modal
-            title="Create Book (uncontrolled component)"
+            title="Create Book"
             open={isCreateOpen}
             onOk={() => form.submit()}
+            okButtonProps={{
+                loading: isLoading
+            }}
             onCancel={() => resetAndCloseModal()}
             maskClosable={false}
-            okText={"CREATE"}
+            okText={"Create"}
         >
             <Form
                 form={form}

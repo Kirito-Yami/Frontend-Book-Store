@@ -7,6 +7,7 @@ const BookUpdate = (props) => {
     const [form] = Form.useForm();
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (dataUpdate && dataUpdate._id) {
@@ -24,6 +25,7 @@ const BookUpdate = (props) => {
 
     const updateBook = async (newThumbnail, values) => {
         const {id, mainText, author, price, quantity, category} = values;
+        setIsLoading(true);
         const resBook = await updateBookAPI(
             id, newThumbnail, mainText, author, price, quantity, category
         );
@@ -40,6 +42,7 @@ const BookUpdate = (props) => {
                 description: JSON.stringify(resBook.message)
             })
         }
+        setIsLoading(false);
     }
 
     const handleSubmitBtn = async (values) => {
@@ -102,9 +105,12 @@ const BookUpdate = (props) => {
             title="Update Book"
             open={isModalUpdateOpen}
             onOk={() => form.submit()}
+            okButtonProps={{
+                loading: isLoading,
+            }}
             onCancel={() => resetAndCloseModal()}
             maskClosable={false}
-            okText={"UPDATE"}
+            okText={"Update"}
         >
             <Form
                 form={form}

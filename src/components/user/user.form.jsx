@@ -1,18 +1,15 @@
-import {Button, Input, Modal, notification} from "antd";
+import {Form, Input, InputNumber, Modal, notification} from "antd";
 import {useState} from "react";
 import {createUserAPI} from "../../services/api.service.js";
 
 const UserForm = (props) => {
-    const { loadUser } = props;
+    const {isCreateOpen, setIsCreateOpen, loadUser} = props;
+    const [form] = Form.useForm();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [phone, setPhone] = useState("");
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleSubmitBtn = async () => {
+    const handleSubmitBtn = async (values) => {
+        const {fullName, email, password, phone} = values;
+        setIsLoading(true);
         const res = await createUserAPI(fullName, email, password, phone);
         if (res.data) {
             notification.success({
@@ -21,80 +18,98 @@ const UserForm = (props) => {
             });
             resetAndCloseModal();
             await loadUser();
-        }else {
+        } else {
             notification.error({
                 message: "Error create user",
                 description: JSON.stringify(res.message)
-            })
+            });
         }
+        setIsLoading(false);
     }
 
     const resetAndCloseModal = () => {
-        setIsModalOpen(false);
-        setFullName("");
-        setEmail("");
-        setPassword("");
-        setPhone("");
+        form.resetFields();
+        setIsCreateOpen(false);
     }
 
     return (
-        <div className="user-form" style={{margin: "10px 0"}}>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
-                <h3>Table Users</h3>
-                <Button
-                    onClick={() => setIsModalOpen(true)}
-                    type="primary"> Create User </Button>
-            </div>
-
-            <Modal
-                title="Create User"
-                open={isModalOpen}
-                onOk={() => handleSubmitBtn()}
-                onCancel={() => resetAndCloseModal()}
-                maskClosable={false}
-                okText={"CREATE"}
+        <Modal
+            title="Create User"
+            open={isCreateOpen}
+            onOk={() => form.submit()}
+            okButtonProps={{
+                loading: isLoading
+            }}
+            onCancel={() => resetAndCloseModal()}
+            maskClosable={false}
+            okText={"Create"}
+        >
+            <Form
+                form={form}
+                onFinish={handleSubmitBtn}
+                layout="vertical"
             >
-                <div style={{display: "flex", gap: "15px", flexDirection: "column"}}>
+                <div style={{display: "flex", flexDirection: "column"}}>
                     <div>
-                        <span>Full Name</span>
-                        <Input
-                            value={fullName}
-                            onChange={(event) => {
-                                setFullName(event.target.value)
-                            }}
-                        />
+                        <Form.Item
+                            label="Họ tên"
+                            name="fullName"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Họ tên không được để trống!',
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
                     </div>
                     <div>
-                        <span>Email</span>
-                        <Input
-                            value={email}
-                            onChange={(event) => {
-                                setEmail(event.target.value)
-                            }}
-                        />
+                        <Form.Item
+                            label="Email"
+                            name="email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Email không được để trống!',
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
                     </div>
                     <div>
-                        <span>Password</span>
-                        <Input.Password
-                            value={password}
-                            onChange={(event) => {
-                                setPassword(event.target.value)
-                            }}
-                        />
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Mật khẩu không được để trống!',
+                                }
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
                     </div>
                     <div>
-                        <span>Phone number</span>
-                        <Input
-                            value={phone}
-                            onChange={(event) => {
-                                setPhone(event.target.value)
-                            }}
-                        />
+                        <Form.Item
+                            label="Phone"
+                            name="phone"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Số điện thoại không được để trống!',
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
                     </div>
                 </div>
-            </Modal>
-
-        </div>
+            </Form>
+        </Modal>
     )
 }
+
 export default UserForm;

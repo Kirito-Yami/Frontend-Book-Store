@@ -1,4 +1,5 @@
-import { Drawer } from "antd";
+import {Drawer} from "antd";
+
 const BookDetail = (props) => {
     const {dataDetail, setDataDetail, isDetailOpen, setIsDetailOpen} = props;
 
@@ -14,30 +15,30 @@ const BookDetail = (props) => {
         >
             {dataDetail ? <>
                     <p>Id: {dataDetail._id}</p>
-                    <br />
+                    <br/>
                     <p>Tiêu đề: {dataDetail.mainText}</p>
-                    <br />
+                    <br/>
                     <p>Tác giả: {dataDetail.author}</p>
-                    <br />
+                    <br/>
                     <p>Thể loại: {dataDetail.category}</p>
-                    <br />
+                    <br/>
                     <p>Giá tiền: {
                         new Intl.NumberFormat('vi-VN',
-                            { style: 'currency', currency: 'VND' }).format(dataDetail.price)}
+                            {style: 'currency', currency: 'VND'}).format(dataDetail.price)}
                     </p>
-                    <br />
+                    <br/>
                     <p>Số lượng: {dataDetail.quantity}</p>
-                    <br />
+                    <br/>
                     <p>Đã bán: {dataDetail.sold}</p>
-                    <br />
+                    <br/>
                     <p>Thumbnail:</p>
                     <div style={{
                         marginTop: "10px",
                         height: "100px", width: "150px",
                         border: "1px solid #ccc"
                     }}>
-                        <img style={{ height: "100%", width: "100%", objectFit: "contain" }}
-                             src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${dataDetail.thumbnail}`} />
+                        <img style={{height: "100%", width: "100%", objectFit: "contain"}}
+                             src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${dataDetail.thumbnail}`}/>
                     </div>
                 </>
                 :

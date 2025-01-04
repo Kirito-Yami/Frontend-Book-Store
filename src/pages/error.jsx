@@ -41,4 +41,4 @@ const AuthorizedPage = () => {
     );
 }
 
-export { ErrorPage, AuthorizedPage };
+export {ErrorPage, AuthorizedPage};

@@ -1,6 +1,6 @@
 import BookTable from "../components/book/book.table.jsx";
 
-const BookPage = ()=>{
+const BookPage = () => {
     return (
         <div style={{padding: "20px"}}>
             <BookTable/>

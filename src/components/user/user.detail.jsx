@@ -3,13 +3,7 @@ import {useState} from 'react';
 import {handleUploadFile, updateUserAvatarAPI} from "../../services/api.service.js";
 
 const UserDetail = (props) => {
-    const {
-        dataDetail,
-        setDataDetail,
-        isDetailOpen,
-        setIsDetailOpen,
-        loadUser
-    } = props;
+    const {dataDetail, setDataDetail, isDetailOpen, setIsDetailOpen, loadUser} = props;
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(null);

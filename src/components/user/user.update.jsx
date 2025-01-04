@@ -1,25 +1,26 @@
 import {useEffect, useState} from "react";
-import { Input, notification, Modal } from "antd";
-import { updateUserAPI} from "../../services/api.service";
+import {Input, notification, Modal, Form} from "antd";
+import {updateUserAPI} from "../../services/api.service";
 
 const UserUpdate = (props) => {
-    const [id, setId] = useState("");
-    const [fullName, setFullName] = useState("");
-    const [phone, setPhone] = useState("");
-    const { isModalUpdateOpen, setIsModalUpdateOpen,
-        dataUpdate, setDataUpdate, loadUser
-    } = props;
+    const {isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser} = props;
+    const [form] = Form.useForm();
+    const [isLoading, setIsLoading] = useState(false);
 
     //next dataUpdate != prev dataUpdate
     useEffect(() => {
-        if (dataUpdate) {
-            setId(dataUpdate._id)
-            setFullName(dataUpdate.fullName);
-            setPhone(dataUpdate.phone);
+        if (dataUpdate && dataUpdate._id) {
+            form.setFieldsValue({
+                id: dataUpdate._id,
+                fullName: dataUpdate.fullName,
+                phone: dataUpdate.phone,
+            });
         }
     }, [dataUpdate])
 
-    const handleSubmitBtn = async () => {
+    const handleSubmitBtn = async (values) => {
+        const {id, fullName, phone} = values;
+        setIsLoading(true);
         const res = await updateUserAPI(id, fullName, phone);
         if (res.data) {
             notification.success({
@@ -34,12 +35,12 @@ const UserUpdate = (props) => {
                 description: JSON.stringify(res.message)
             })
         }
+        setIsLoading(false);
     }
+
     const resetAndCloseModal = () => {
+        form.resetFields();
         setIsModalUpdateOpen(false);
-        setFullName("");
-        setPhone("");
-        setId("");
         setDataUpdate(null);
     }
 
@@ -47,35 +48,58 @@ const UserUpdate = (props) => {
         <Modal
             title="Update a User"
             open={isModalUpdateOpen}
-            onOk={() => handleSubmitBtn()}
+            onOk={() => form.submit()}
+            okButtonProps={{
+                loading: isLoading,
+            }}
             onCancel={() => resetAndCloseModal()}
             maskClosable={false}
-            okText={"SAVE"}
+            okText={"Update"}
         >
-            <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
-                <div>
-                    <span>Id</span>
-                    <Input
-                        value={id}
-                        disabled
-                    />
+            <Form
+                form={form}
+                onFinish={handleSubmitBtn}
+                layout="vertical"
+            >
+                <div style={{display: "flex", flexDirection: "column"}}>
+                    <div>
+                        <Form.Item
+                            label="Id"
+                            name="id"
+                        >
+                            <Input disabled/>
+                        </Form.Item>
+                    </div>
+                    <div>
+                        <Form.Item
+                            label="Họ Tên"
+                            name="fullName"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Họ tên không được để trống!',
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                    </div>
+                    <div>
+                        <Form.Item
+                            label="Phone"
+                            name="phone"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Số điện thoại không được để trống!',
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                    </div>
                 </div>
-                <div>
-                    <span>Full Name</span>
-                    <Input
-                        value={fullName}
-                        onChange={(event) => { setFullName(event.target.value) }}
-                    />
-                </div>
-
-                <div>
-                    <span>Phone number</span>
-                    <Input
-                        value={phone}
-                        onChange={(event) => { setPhone(event.target.value) }}
-                    />
-                </div>
-            </div>
+            </Form>
         </Modal>
     )
 }

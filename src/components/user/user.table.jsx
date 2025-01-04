@@ -1,19 +1,38 @@
-import {Popconfirm, Table, notification} from 'antd';
+import {Popconfirm, Table, notification, Button} from 'antd';
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import UserUpdate from "./user.update.jsx";
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import UserDetail from "./user.detail.jsx";
-import {deleteUserAPI} from "../../services/api.service.js";
+import {deleteUserAPI, fetchAllUserAPI} from "../../services/api.service.js";
+import UserForm from "./user.form.jsx";
 
-const UserTable = (props) => {
-    const { dataUsers, loadUser,
-        current, pageSize, total,
-        setCurrent, setPageSize
-    } = props;
+const UserTable = () => {
+    const [dataUsers, setDataUsers] = useState([]);
+    const [current, setCurrent] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [total, setTotal] = useState(0);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const [loadingTable, setLoadingTable] = useState(false);
+
+    const loadUser = useCallback(async () => {
+        setLoadingTable(true);
+        const res = await fetchAllUserAPI(current, pageSize);
+        if (res.data) {
+            setDataUsers(res.data.result);
+            setCurrent(res.data.meta.current);
+            setPageSize(res.data.meta.pageSize);
+            setTotal(res.data.meta.total);
+        }
+        setLoadingTable(false);
+    }, [current, pageSize]);
+
+    useEffect(() => {
+        loadUser();
+    }, [current, pageSize]);
 
     const columns = [
         {
@@ -71,7 +90,7 @@ const UserTable = (props) => {
                         cancelText="No"
                         placement="left"
                     >
-                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                        <DeleteOutlined style={{cursor: "pointer", color: "red"}}/>
                     </Popconfirm>
                 </div>
             ),
@@ -113,6 +132,14 @@ const UserTable = (props) => {
 
     return (
         <>
+            <div style={{
+                margin: "10px 0",
+                display: "flex",
+                justifyContent: "space-between"
+            }}>
+                <h3>Table User</h3>
+                <Button type="primary" onClick={() => setIsCreateOpen(true)}>Create User</Button>
+            </div>
             <Table
                 columns={columns}
                 dataSource={dataUsers}
@@ -123,10 +150,18 @@ const UserTable = (props) => {
                         pageSize: pageSize,
                         showSizeChanger: true,
                         total: total,
-                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                        showTotal: (total, range) => {
+                            return (<div> {range[0]}-{range[1]} trên {total} rows</div>)
+                        }
                     }
                 }
                 onChange={onChange}
+                loading={loadingTable}
+            />
+            <UserForm
+                isCreateOpen={isCreateOpen}
+                setIsCreateOpen={setIsCreateOpen}
+                loadUser={loadUser}
             />
             <UserUpdate
                 isModalUpdateOpen={isModalUpdateOpen}
