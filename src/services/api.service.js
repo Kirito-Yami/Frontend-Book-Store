@@ -1,6 +1,12 @@
 // import axios from "axios";
 import axios from './axios.customize';
 
+//User API
+const fetchAllUserAPI = (current, pageSize) => {
+    const URL_BACKEND = `/api/v1/user?current=${current}&pageSize=${pageSize}`;
+    return axios.get(URL_BACKEND);
+}
+
 const createUserAPI = (fullName, email, password, phone) => {
     const URL_BACKEND = "/api/v1/user";
     const data = {
@@ -20,11 +26,6 @@ const updateUserAPI = (_id, fullName, phone) => {
         phone: phone
     }
     return axios.put(URL_BACKEND, data);
-}
-
-const fetchAllUserAPI = (current, pageSize) => {
-    const URL_BACKEND = `/api/v1/user?current=${current}&pageSize=${pageSize}`;
-    return axios.get(URL_BACKEND);
 }
 
 const deleteUserAPI = (id) => {
@@ -64,6 +65,13 @@ const getAccountAPI = () => {
     return axios.get(URL_BACKEND);
 }
 
+
+//Book API
+const fetchAllBookAPI = (current, pageSize) => {
+    const URL_BACKEND = `/api/v1/book?current=${current}&pageSize=${pageSize}`;
+    return axios.get(URL_BACKEND);
+}
+
 const handleUploadFile = (file, folder) => {
     const URL_BACKEND = `/api/v1/file/upload`;
     let config = {
@@ -90,5 +98,7 @@ const updateUserAvatarAPI = (avatar, _id, fullName, phone) => {
 
 export {
     fetchAllUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, registerUserAPI,
-    loginUserAPI, logoutUserAPI, getAccountAPI, handleUploadFile, updateUserAvatarAPI
+    loginUserAPI, logoutUserAPI, getAccountAPI,
+    fetchAllBookAPI,
+    handleUploadFile, updateUserAvatarAPI
 }
