@@ -84,6 +84,20 @@ const createBookAPI = (thumbnail, mainText, author, price, quantity, category) =
     return axios.post(URL_BACKEND, data);
 }
 
+const updateBookAPI = (_id, thumbnail, mainText, author, price, quantity, category) => {
+    const URL_BACKEND = `/api/v1/book`;
+    const data = {
+        _id: _id,
+        thumbnail: thumbnail,
+        mainText: mainText,
+        author: author,
+        price: price,
+        quantity: quantity,
+        category: category
+    }
+    return axios.put(URL_BACKEND, data);
+}
+
 const handleUploadFile = (file, folder) => {
     const URL_BACKEND = `/api/v1/file/upload`;
     let config = {
@@ -111,6 +125,6 @@ const updateUserAvatarAPI = (avatar, _id, fullName, phone) => {
 export {
     fetchAllUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, registerUserAPI,
     loginUserAPI, logoutUserAPI, getAccountAPI,
-    fetchAllBookAPI, createBookAPI,
+    fetchAllBookAPI, createBookAPI, updateBookAPI,
     handleUploadFile, updateUserAvatarAPI
 }

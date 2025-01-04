@@ -4,11 +4,12 @@ import {useEffect, useState} from "react";
 import {fetchAllBookAPI} from "../../services/api.service";
 import BookDetail from "./book.detail.jsx";
 import BookForm from "./book.form.jsx";
+import BookUpdate from "./book.update.jsx";
 
 const BookTable = () => {
     const [dataBook, setDataBook] = useState([]);
     const [current, setCurrent] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
@@ -151,6 +152,13 @@ const BookTable = () => {
             <BookForm
                 isCreateOpen={isCreateOpen}
                 setIsCreateOpen={setIsCreateOpen}
+                loadBook={loadBook}
+            />
+            <BookUpdate
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
                 loadBook={loadBook}
             />
         </>
