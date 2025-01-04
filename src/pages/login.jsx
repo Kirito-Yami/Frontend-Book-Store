@@ -2,12 +2,14 @@ import {ArrowRightOutlined} from "@ant-design/icons";
 import {Button, Form, Input, Row, Col, Divider, notification} from "antd";
 import {Link, useNavigate} from "react-router-dom";
 import {loginUserAPI} from "../services/api.service.js";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "../components/context/auth.context.jsx";
 
 const LoginPage = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const { setUser } = useContext(AuthContext);
 
     const onFinish = async (values) => {
         const {email, password} = values;
@@ -18,6 +20,8 @@ const LoginPage = () => {
                 message: "Login User",
                 description: "Đăng nhập thành công"
             });
+            localStorage.setItem("access_token", res.data.access_token);
+            setUser(res.data.user);
             navigate("/users");
         } else {
             notification.error({
