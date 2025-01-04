@@ -1,14 +1,13 @@
-import { Form, Input, InputNumber, Modal, Select, notification } from "antd";
-import { useEffect, useState } from "react";
-import { handleUploadFile, updateBookAPI } from "../../services/api.service";
+import {Form, Input, InputNumber, Modal, Select, notification} from "antd";
+import {useEffect, useState} from "react";
+import {handleUploadFile, updateBookAPI} from "../../services/api.service";
+
 const BookUpdate = (props) => {
-    const {
-        dataUpdate, setDataUpdate, loadBook,
-        isModalUpdateOpen, setIsModalUpdateOpen
-    } = props;
+    const {dataUpdate, setDataUpdate, loadBook, isModalUpdateOpen, setIsModalUpdateOpen} = props;
     const [form] = Form.useForm();
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(null);
+
     useEffect(() => {
         if (dataUpdate && dataUpdate._id) {
             form.setFieldsValue({
@@ -21,9 +20,10 @@ const BookUpdate = (props) => {
             })
             setPreview(`${import.meta.env.VITE_BACKEND_URL}/images/book/${dataUpdate.thumbnail}`)
         }
-    }, [dataUpdate])
+    }, [dataUpdate]);
+
     const updateBook = async (newThumbnail, values) => {
-        const { id, mainText, author, price, quantity, category } = values;
+        const {id, mainText, author, price, quantity, category} = values;
         const resBook = await updateBookAPI(
             id, newThumbnail, mainText, author, price, quantity, category
         );
@@ -41,6 +41,7 @@ const BookUpdate = (props) => {
             })
         }
     }
+
     const handleSubmitBtn = async (values) => {
         //không có ảnh preview + không có file => return
         if (!selectedFile && !preview) {
@@ -73,6 +74,7 @@ const BookUpdate = (props) => {
         //step 2: update book
         await updateBook(newThumbnail, values);
     }
+
     const resetAndCloseModal = () => {
         form.resetFields();
         setSelectedFile(null);
@@ -80,6 +82,7 @@ const BookUpdate = (props) => {
         setDataUpdate(null);
         setIsModalUpdateOpen(false);
     }
+
     const handleOnChangeFile = (event) => {
         if (!event.target.files || event.target.files.length === 0) {
             setSelectedFile(null);
@@ -93,6 +96,7 @@ const BookUpdate = (props) => {
             setPreview(URL.createObjectURL(file))
         }
     }
+
     return (
         <Modal
             title="Update Book"
@@ -107,13 +111,13 @@ const BookUpdate = (props) => {
                 onFinish={handleSubmitBtn}
                 layout="vertical"
             >
-                <div style={{ display: "flex", flexDirection: "column" }}>
+                <div style={{display: "flex", flexDirection: "column"}}>
                     <div>
                         <Form.Item
                             label="Id"
                             name="id"
                         >
-                            <Input disabled />
+                            <Input disabled/>
                         </Form.Item>
                     </div>
                     <div>
@@ -127,7 +131,7 @@ const BookUpdate = (props) => {
                                 }
                             ]}
                         >
-                            <Input />
+                            <Input/>
                         </Form.Item>
                     </div>
                     <div>
@@ -141,7 +145,7 @@ const BookUpdate = (props) => {
                                 }
                             ]}
                         >
-                            <Input />
+                            <Input/>
                         </Form.Item>
                     </div>
                     <div>
@@ -156,7 +160,7 @@ const BookUpdate = (props) => {
                             ]}
                         >
                             <InputNumber
-                                style={{ width: "100%" }}
+                                style={{width: "100%"}}
                                 addonAfter={' đ'}
                             />
                         </Form.Item>
@@ -173,7 +177,7 @@ const BookUpdate = (props) => {
                             ]}
                         >
                             <InputNumber
-                                style={{ width: "100%" }}
+                                style={{width: "100%"}}
                             />
                         </Form.Item>
                     </div>
@@ -189,19 +193,19 @@ const BookUpdate = (props) => {
                             ]}
                         >
                             <Select
-                                style={{ width: "100%" }}
+                                style={{width: "100%"}}
                                 name="category"
                                 options={[
-                                    { value: 'Arts', label: 'Arts' },
-                                    { value: 'Business', label: 'Business' },
-                                    { value: 'Comics', label: 'Comics' },
-                                    { value: 'Cooking', label: 'Cooking' },
-                                    { value: 'Entertainment', label: 'Entertainment' },
-                                    { value: 'History', label: 'History' },
-                                    { value: 'Music', label: 'Music' },
-                                    { value: 'Sports', label: 'Sports' },
-                                    { value: 'Teen', label: 'Teen' },
-                                    { value: 'Travel', label: 'Travel' },
+                                    {value: 'Arts', label: 'Arts'},
+                                    {value: 'Business', label: 'Business'},
+                                    {value: 'Comics', label: 'Comics'},
+                                    {value: 'Cooking', label: 'Cooking'},
+                                    {value: 'Entertainment', label: 'Entertainment'},
+                                    {value: 'History', label: 'History'},
+                                    {value: 'Music', label: 'Music'},
+                                    {value: 'Sports', label: 'Sports'},
+                                    {value: 'Teen', label: 'Teen'},
+                                    {value: 'Travel', label: 'Travel'},
                                 ]}
                             />
                         </Form.Item>
@@ -224,7 +228,7 @@ const BookUpdate = (props) => {
                                 type='file' hidden id='btnUpload'
                                 onChange={(event) => handleOnChangeFile(event)}
                                 onClick={(event) => event.target.value = null}
-                                style={{ display: "none" }}
+                                style={{display: "none"}}
                             />
                         </div>
                         {preview &&
@@ -234,8 +238,8 @@ const BookUpdate = (props) => {
                                     marginBottom: "15px",
                                     height: "100px", width: "150px",
                                 }}>
-                                    <img style={{ height: "100%", width: "100%", objectFit: "contain" }}
-                                         src={preview} />
+                                    <img style={{height: "100%", width: "100%", objectFit: "contain"}}
+                                         src={preview}/>
                                 </div>
                             </>
                         }
@@ -245,4 +249,5 @@ const BookUpdate = (props) => {
         </Modal>
     )
 }
+
 export default BookUpdate;

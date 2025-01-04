@@ -1,9 +1,7 @@
 import { Drawer } from "antd";
 const BookDetail = (props) => {
-    const {
-        dataDetail, setDataDetail,
-        isDetailOpen, setIsDetailOpen
-    } = props;
+    const {dataDetail, setDataDetail, isDetailOpen, setIsDetailOpen} = props;
+
     return (
         <Drawer
             width={"40vw"}
@@ -50,4 +48,5 @@ const BookDetail = (props) => {
         </Drawer>
     )
 }
+
 export default BookDetail;

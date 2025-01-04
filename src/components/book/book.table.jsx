@@ -1,7 +1,7 @@
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import {Button, Popconfirm, Table} from "antd";
+import {Button, Popconfirm, Table, notification} from "antd";
 import {useEffect, useState} from "react";
-import {fetchAllBookAPI} from "../../services/api.service";
+import {deleteBookAPI, fetchAllBookAPI} from "../../services/api.service";
 import BookDetail from "./book.detail.jsx";
 import BookForm from "./book.form.jsx";
 import BookUpdate from "./book.update.jsx";
@@ -19,7 +19,8 @@ const BookTable = () => {
 
     useEffect(() => {
         loadBook();
-    }, [current, pageSize])
+    }, [current, pageSize]);
+
     const loadBook = async () => {
         const res = await fetchAllBookAPI(current, pageSize);
         if (res.data) {
@@ -29,8 +30,23 @@ const BookTable = () => {
             setTotal(res.data.meta.total);
         }
     }
+
     const handleDeleteBook = async (id) => {
+        const res = await deleteBookAPI(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete book",
+                description: "Xóa book thành công"
+            })
+            await loadBook();
+        } else {
+            notification.error({
+                message: "Error delete book",
+                description: JSON.stringify(res.message)
+            })
+        }
     }
+
     const onChange = (pagination, filters, sorter, extra) => {
         // setCurrent, setPageSize
         //nếu thay đổi trang : current
@@ -46,6 +62,7 @@ const BookTable = () => {
             }
         }
     };
+
     const columns = [
         {
             title: "STT",
@@ -116,6 +133,7 @@ const BookTable = () => {
             ),
         },
     ];
+
     return (
         <>
             <div style={{
@@ -164,4 +182,5 @@ const BookTable = () => {
         </>
     )
 }
+
 export default BookTable;
