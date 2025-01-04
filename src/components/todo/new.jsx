@@ -7,7 +7,7 @@ const TodoNew = (props) => {
 
     const handleOnClick = () => {
         if (valueInput ===''){
-            alert("Add...add...cái nịt! Thích spam không???")
+            alert("Nhập cái tên vào! Không nhập tên mà cứ spam cái gì???")
         }else{
             addNewTodo(valueInput);
             setValueInput('');
