@@ -38,7 +38,18 @@ const registerUserAPI = (fullName, email, password, phone) => {
         fullName: fullName,
         email: email,
         password: password,
-        phone: phone
+        phone: phone,
+        delay: 1500
+    }
+    return axios.post(URL_BACKEND, data);
+}
+
+const loginUserAPI = (email, password) => {
+    const URL_BACKEND = "/api/v1/auth/login";
+    const data = {
+        username: email,
+        password: password,
+        delay: 1500
     }
     return axios.post(URL_BACKEND, data);
 }
@@ -55,6 +66,7 @@ const handleUploadFile = (file, folder) => {
     bodyFormData.append("fileImg", file)
     return axios.post(URL_BACKEND, bodyFormData, config);
 }
+
 const updateUserAvatarAPI = (avatar, _id, fullName, phone) => {
     const URL_BACKEND = "/api/v1/user";
     const data = {
@@ -68,5 +80,5 @@ const updateUserAvatarAPI = (avatar, _id, fullName, phone) => {
 
 export {
     fetchAllUserAPI, createUserAPI, updateUserAPI, deleteUserAPI,
-    registerUserAPI, handleUploadFile, updateUserAvatarAPI
+    registerUserAPI, loginUserAPI, handleUploadFile, updateUserAvatarAPI
 }
