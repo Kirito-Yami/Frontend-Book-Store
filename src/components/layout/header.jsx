@@ -1,15 +1,22 @@
 import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
-import {AuditOutlined, HomeOutlined, SettingOutlined, UsergroupAddOutlined} from "@ant-design/icons";
+import {
+    AliwangwangOutlined,
+    AuditOutlined,
+    HomeOutlined,
+    LoginOutlined,
+    SettingOutlined,
+    UsergroupAddOutlined
+} from "@ant-design/icons";
 import {Menu} from "antd";
 import {AuthContext} from "../context/auth.context.jsx";
 
 const Header = () => {
     const [current, setCurrent] = useState('');
 
-    const { user } = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
 
-    console.log("Check User",user);
+    console.log("Check User", user);
 
     const onClick = (e) => {
         console.log('click ', e);
@@ -19,34 +26,36 @@ const Header = () => {
         {
             label: <Link to={"/"}>Home</Link>,
             key: 'home',
-            icon: <HomeOutlined />,
+            icon: <HomeOutlined/>,
         },
         {
             label: <Link to={"/users"}>Users</Link>,
             key: 'users',
-            icon: <UsergroupAddOutlined />
+            icon: <UsergroupAddOutlined/>
         },
         {
             label: <Link to={"/books"}>Books</Link>,
             key: 'books',
-            icon: <AuditOutlined />,
+            icon: <AuditOutlined/>,
         },
-        {
-            label: 'Cài đặt',
+        ...(!user.id ? [{
+            label: <Link to={"/login"}>Đăng nhập</Link>,
+            key: 'login',
+            icon: <LoginOutlined/>,
+        }] : []),
+        ...(user.id ? [{
+            label: `Welcome ${user.fullName}`,
             key: 'setting',
-            icon: <SettingOutlined />,
+            icon: <AliwangwangOutlined/>,
             children: [
-                {
-                    label: <Link to={"/login"}>Đăng nhập</Link>,
-                    key: 'login',
-                },
                 {
                     label: 'Đăng xuất',
                     key: 'logout',
                 },
             ],
-        },
+        }] : []),
     ];
+
     return (
         <Menu
             onClick={onClick}

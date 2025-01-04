@@ -12,11 +12,13 @@ import ProductPage from "./pages/product.jsx"
 import './styles/global.css';
 import TodoHome from "./components/todo/home.jsx";
 import {AuthWrapper} from "./components/context/auth.context.jsx";
+import ErrorPage from "./pages/error.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App/>,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 index: true,

@@ -3,7 +3,6 @@ import { Button, Result } from 'antd';
 
 export default function ErrorPage() {
     const error = useRouteError();
-    console.error(error);
 
     return (
         <Result

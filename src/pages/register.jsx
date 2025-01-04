@@ -24,6 +24,12 @@ const RegisterPage = () => {
         }
     }
 
+    const onRegister = (event) => {
+        if (event.key === "Enter") {
+            form.submit();
+        }
+    }
+
     return (
         <Row justify={"center"} style={{ marginTop: "150px" }}>
         <Col xs={24} md={16} lg={8}>
@@ -89,7 +95,7 @@ const RegisterPage = () => {
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input onKeyDown={(event) => onRegister(event)}/>
                     </Form.Item>
                     <Form.Item >
                         <div style={{

@@ -9,7 +9,7 @@ const LoginPage = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const { setUser } = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
 
     const onFinish = async (values) => {
         const {email, password} = values;
@@ -22,7 +22,7 @@ const LoginPage = () => {
             });
             localStorage.setItem("access_token", res.data.access_token);
             setUser(res.data.user);
-            navigate("/users");
+            navigate("/");
         } else {
             notification.error({
                 message: "Login User",
@@ -30,6 +30,12 @@ const LoginPage = () => {
             });
         }
         setIsLoading(false);
+    }
+
+    const onLogin = (event) => {
+        if (event.key === "Enter") {
+            form.submit();
+        }
     }
 
     return (
@@ -73,7 +79,7 @@ const LoginPage = () => {
                                 },
                             ]}
                         >
-                            <Input.Password/>
+                            <Input.Password onKeyDown={(event) => onLogin(event)}/>
                         </Form.Item>
                         <Form.Item>
                             <div style={{
