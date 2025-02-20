@@ -9,7 +9,7 @@
    - Môi trường chạy dự án là NodeJS version 20.14.0
 
 3. Demo:
-   - Link Demo sản phẩm tại đây: 
+   - Link Demo sản phẩm tại đây: https://frontend-book-store-amber.vercel.app/
 
 4. Cách chạy dự án:
    - Các bước cài đặt:
