@@ -8,8 +8,8 @@
 2. Môi trường NodeJS
    - Môi trường chạy dự án là NodeJS version 20.14.0
 
-3. Tài nguyên:
-   - Download Source Backend tại đây: 
+3. Demo:
+   - Link Demo sản phẩm tại đây: 
 
 4. Cách chạy dự án:
    - Các bước cài đặt:
