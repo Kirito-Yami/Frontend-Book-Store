@@ -1,37 +1,42 @@
-## Book Store
+# **Book Store**
 
-### I. Thông tin về dự án
-1. Về dự án:
-    - Dự án làm quen với React. Nắm rõ khái niệm "props" và "state" của React.
-    - Công nghệ sử dụng: React(JavaScript)
+## **I. Giới Thiệu Dự Án**
 
-2. Môi trường NodeJS
-   - Môi trường chạy dự án là NodeJS version 20.14.0
+### **1. Tổng Quan**
+🚀 **Book Store** là một dự án giúp làm quen với React, tập trung vào việc hiểu rõ các khái niệm quan trọng như "props" và "state".
+🔧 **Công nghệ sử dụng**: `ReactJS`, `JavaScript`, `Ant Design`...
 
-3. Demo:
-   - Link Demo sản phẩm tại đây: https://frontend-book-store-amber.vercel.app/
+### **2. Môi Trường & Công Nghệ**
+🖥️ **Nền tảng chạy dự án**: `Node.js v20.14.0`  
+📦 **Quản lý thư viện**: `npm`
 
-4. Cách chạy dự án:
-   - Các bước cài đặt:
-     + Clone source code.
-     + Cài đặt thư viện: npm i
-     + Update file .env.development (nếu cần thiết)
-     + Chạy dự án: npm run dev
+### **3. Demo Dự Án**
+🌐 **Link demo dự án**: [Book Store](https://frontend-book-store-amber.vercel.app/)
 
-====================================================================
+### **4. Lưu Ý Quan Trọng**
+#### **4.1. Tài khoản test**
+📧 **Username**: `admin@gmail.com`  
+🔑 **Password**: `123456`
 
-### II. Người thực hiện
-👋👋 Chào bạn, tôi là Kirito Nguyễn!
+---
 
-👀 Tôi đam mê lập trình, đặc biệt là trong lĩnh vực phát triển website và ứng dụng di động.
+## **II. Về Tác Giả**
 
-🌱 Hiện tại, tôi đang theo học ngành Công nghệ Thông tin và tập trung vào việc phát triển website và ứng dụng di động.
+### **👋 Xin Chào! Tôi là Kirito Nguyễn!**
 
-💞️ Tôi luôn mong muốn tìm kiếm cơ hội hợp tác trong các dự án sáng tạo liên quan đến website và ứng dụng di động.
+💻 **Full-Stack Developer** với niềm đam mê mãnh liệt trong việc xây dựng **website** và **ứng dụng di động**. Tôi không ngừng học hỏi, khám phá công nghệ mới và áp dụng chúng vào các dự án thực tế.
 
-📫 Bạn có thể tìm kiếm thông tin của tôi trên website: https://minhducnguyen.io.vn
+🎓 **Học vấn**: Sinh viên ngành **Công nghệ Thông tin**, luôn tìm kiếm cơ hội để phát triển kỹ năng và sáng tạo những giải pháp hữu ích.
 
-😄 Ngoài lập trình, tôi cũng rất thích ca hát và chơi nhạc cụ – đó là cách tôi thư giãn và sáng tạo!
+💼 **Mục tiêu**: Tìm kiếm **cơ hội hợp tác** với những dự án sáng tạo, đặc biệt là trong lĩnh vực **web** và **mobile**.
 
-⚡ Sở thích của tôi là viết mã ngắn gọn, dễ hiểu và hiệu quả – tối giản nhưng mạnh mẽ.
+📫 **Kết nối với tôi qua website cá nhân**: [minhducnguyen.io.vn](https://minhducnguyen.io.vn)
 
+🎶 **Sở thích**: Ngoài lập trình, tôi yêu thích **ca hát và chơi nhạc cụ**, giúp tôi thư giãn và duy trì sự sáng tạo.
+
+⚡ **Triết lý lập trình của tôi**:
+> _"Viết code không chỉ để máy hiểu, mà còn để lập trình viên khác dễ dàng đọc và mở rộng."_
+
+---
+
+🔥 **Hãy cùng khám phá và xây dựng những điều tuyệt vời!** 🚀
