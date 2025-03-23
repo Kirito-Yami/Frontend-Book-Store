@@ -11,7 +11,7 @@
 📦 **Quản lý thư viện**: `npm`
 
 ### **3. Demo Dự Án**
-🌐 **Link demo dự án**: [Book Store](https://frontend-book-store-amber.vercel.app/)
+🌐 **Link demo dự án**: [Book Store](https://book-store-wheat-three.vercel.app/)
 
 ### **4. Lưu Ý Quan Trọng**
 #### **4.1. Tài khoản test**
